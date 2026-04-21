@@ -1,0 +1,77 @@
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-body">
+                <h2>Izveidot pasākumu</h2>
+
+                <div class="alert alert-danger" *ngIf="error">{{ error }}</div>
+
+                <form [formGroup]="form" (ngSubmit)="submit()">
+                    <div class="mb-3">
+                        <label class="form-label">Nosaukums</label>
+                        <input class="form-control" formControlName="title" />
+                        <div class="text-danger" *ngIf="form.controls.title.touched && form.controls.title.invalid">
+                            Nosaukums ir obligāts.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Apraksts</label>
+                        <textarea class="form-control" rows="4" formControlName="description"></textarea>
+                        <div class="text-danger"
+                            *ngIf="form.controls.description.touched && form.controls.description.invalid">
+                            Apraksts ir obligāts.
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Datums</label>
+                            <input type="date" class="form-control" formControlName="date" [attr.min]="today" />
+                            <div class="text-danger"
+                                *ngIf="form.controls.date.touched && form.controls.date.errors?.['required']">
+                                Datums ir obligāts.
+                            </div>
+                            <div class="text-danger"
+                                *ngIf="form.controls.date.touched && form.controls.date.errors?.['pastDate']">
+                                Nedrīkst izvēlēties datumu pirms šodienas.
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Laiks</label>
+                            <input type="time" class="form-control" formControlName="time" />
+                            <div class="text-danger" *ngIf="form.controls.time.touched && form.controls.time.invalid">
+                                Laiks ir obligāts.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Vieta</label>
+                        <input class="form-control" formControlName="location" />
+                        <div class="text-danger"
+                            *ngIf="form.controls.location.touched && form.controls.location.invalid">
+                            Vieta ir obligāta.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Maksimālais dalībnieku skaits</label>
+                        <input type="number" class="form-control" formControlName="maxParticipants" />
+                        <div class="text-danger"
+                            *ngIf="form.controls.maxParticipants.touched && form.controls.maxParticipants.errors?.['required']">
+                            Lauks ir obligāts.
+                        </div>
+                        <div class="text-danger"
+                            *ngIf="form.controls.maxParticipants.touched && form.controls.maxParticipants.errors?.['min']">
+                            Skaitam jābūt vismaz 1.
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary" [disabled]="form.invalid">Saglabāt</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

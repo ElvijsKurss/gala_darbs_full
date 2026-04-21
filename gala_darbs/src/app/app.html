@@ -1,0 +1,33 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/events">Pasākumi</a>
+
+    <div class="collapse navbar-collapse show">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item" *ngIf="authService.isLoggedIn()">
+          <a class="nav-link" routerLink="/events">Pasākumi</a>
+        </li>
+        <li class="nav-item" *ngIf="authService.isLoggedIn()">
+          <a class="nav-link" routerLink="/create-event">Izveidot pasākumu</a>
+        </li>
+      </ul>
+
+      <div class="d-flex gap-2">
+        <span class="text-white me-3" *ngIf="authService.isLoggedIn()">
+          {{ authService.getUsername() }}
+        </span>
+
+        <a class="btn btn-outline-light" routerLink="/login" *ngIf="!authService.isLoggedIn()">Pieslēgties</a>
+        <a class="btn btn-outline-light" routerLink="/register" *ngIf="!authService.isLoggedIn()">Reģistrēties</a>
+
+        <button class="btn btn-danger" *ngIf="authService.isLoggedIn()" (click)="logout()">
+          Iziet
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="container mt-4">
+  <router-outlet></router-outlet>
+</div>

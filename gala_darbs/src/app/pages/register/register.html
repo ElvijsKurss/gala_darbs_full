@@ -1,0 +1,37 @@
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-body">
+                <h2>Reģistrācija</h2>
+
+                <div class="alert alert-danger" *ngIf="error">{{ error }}</div>
+
+                <form [formGroup]="form" (ngSubmit)="submit()">
+                    <div class="mb-3">
+                        <label class="form-label">Lietotājvārds</label>
+                        <input class="form-control" formControlName="username" />
+                        <div class="text-danger"
+                            *ngIf="form.controls.username.touched && form.controls.username.invalid">
+                            Lietotājvārdam jābūt vismaz 3 simboliem.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Parole</label>
+                        <input type="password" class="form-control" formControlName="password" />
+                        <div class="text-danger"
+                            *ngIf="form.controls.password.touched && form.controls.password.invalid">
+                            Parolei jābūt vismaz 4 simboliem.
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary w-100">Reģistrēties</button>
+                </form>
+
+                <p class="mt-3">
+                    Jau ir konts? <a routerLink="/login">Pieslēgties</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

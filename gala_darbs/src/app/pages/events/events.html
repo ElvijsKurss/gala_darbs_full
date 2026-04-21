@@ -1,0 +1,40 @@
+<div class="alert alert-danger" *ngIf="error">{{ error }}</div>
+
+<h2 class="mb-4">Pasākumi</h2>
+
+<div class="row">
+    <div class="col-md-4 mb-3" *ngFor="let event of events">
+        <div class="card shadow h-100">
+            <div class="card-body">
+                <h5 class="card-title">{{ event.title }}</h5>
+                <p class="card-text">{{ event.description }}</p>
+
+                <p><strong>Datums:</strong> {{ event.date }}</p>
+                <p><strong>Laiks:</strong> {{ event.time }}</p>
+                <p><strong>Vieta:</strong> {{ event.location }}</p>
+                <p><strong>Dalībnieki:</strong> {{ event.registeredCount }} / {{ event.maxParticipants }}</p>
+
+                <span class="badge bg-success me-2" *ngIf="event.joined">Pieteicies</span>
+                <span class="badge bg-warning text-dark me-2" *ngIf="event.full">Pilns</span>
+                <span class="badge bg-danger me-2" *ngIf="event.cancelled">Atcelts</span>
+
+                <div class="mt-3 d-flex gap-2 flex-wrap">
+                    <button class="btn btn-primary" *ngIf="!event.joined && !event.full && !event.cancelled"
+                        (click)="join(event.id)">
+                        Pieteikties
+                    </button>
+
+                    <button class="btn btn-outline-danger" *ngIf="event.joined" (click)="leave(event.id)">
+                        Atcelt dalību
+                    </button>
+
+                    <button class="btn btn-warning"
+                        *ngIf="!event.cancelled && event.createdByUsername === authService.getUsername()"
+                        (click)="cancelEvent(event.id)">
+                        Atcelt pasākumu
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
